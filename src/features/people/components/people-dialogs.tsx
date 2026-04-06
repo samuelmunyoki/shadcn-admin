@@ -1,7 +1,7 @@
-import { UsersActionDialog } from './users-action-dialog'
-import { UsersDeleteDialog } from './users-delete-dialog'
-import { UsersInviteDialog } from './users-invite-dialog'
-import { useUsers } from './users-provider'
+import { UsersActionDialog } from './people-action-dialog'
+import { UsersDeleteDialog } from './people-delete-dialog'
+import { UsersInviteDialog } from './people-invite-dialog'
+import { useUsers } from './people-provider'
 
 export function UsersDialogs() {
   const { open, setOpen, currentRow, setCurrentRow } = useUsers()

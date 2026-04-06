@@ -15,11 +15,11 @@ import { Main } from '@/components/layout/main'
 import { LearnMore } from '@/components/learn-more'
 import { Search } from '@/components/search'
 import { ThemeSwitch } from '@/components/theme-switch'
-import { UsersDialogs } from '@/features/users/components/users-dialogs'
-import { UsersPrimaryButtons } from '@/features/users/components/users-primary-buttons'
-import { UsersProvider } from '@/features/users/components/users-provider'
-import { UsersTable } from '@/features/users/components/users-table'
-import { users } from '@/features/users/data/users'
+import { UsersDialogs } from '@/features/people/components/people-dialogs'
+import { UsersPrimaryButtons } from '@/features/people/components/people-primary-buttons'
+import { UsersProvider } from '@/features/people/components/people-provider'
+import { UsersTable } from '@/features/people/components/people-table'
+import { users } from '@/features/people/data/people'
 
 export const Route = createFileRoute('/clerk/_authenticated/user-management')({
   component: UserManagement,
@@ -59,10 +59,12 @@ function UserManagement() {
           <Main>
             <div className='mb-2 flex flex-wrap items-center justify-between space-y-2'>
               <div>
-                <h2 className='text-2xl font-bold tracking-tight'>User List</h2>
+                <h2 className='text-2xl font-bold tracking-tight'>
+                  People List
+                </h2>
                 <div className='flex gap-1'>
                   <p className='text-muted-foreground'>
-                    Manage your users and their roles here.
+                    Manage people and their roles here.
                   </p>
                   <LearnMore
                     open={opened}
@@ -72,10 +74,10 @@ function UserManagement() {
                     <p>
                       This is the same as{' '}
                       <Link
-                        to='/users'
+                        to='/people'
                         className='text-blue-500 underline decoration-dashed underline-offset-2'
                       >
-                        '/users'
+                        '/people'
                       </Link>
                     </p>
 
@@ -138,10 +140,10 @@ function Unauthorized() {
               <p>
                 This is the same as{' '}
                 <Link
-                  to='/users'
+                  to='/people'
                   className='text-blue-500 underline decoration-dashed underline-offset-2'
                 >
-                  '/users'
+                  '/people'
                 </Link>
                 .{' '}
               </p>

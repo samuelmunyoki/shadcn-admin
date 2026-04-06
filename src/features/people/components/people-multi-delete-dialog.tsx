@@ -36,12 +36,12 @@ export function UsersMultiDeleteDialog<TData>({
     onOpenChange(false)
 
     toast.promise(sleep(2000), {
-      loading: 'Deleting users...',
+      loading: 'Deleting people...',
       success: () => {
         setValue('')
         table.resetRowSelection()
         return `Deleted ${selectedRows.length} ${
-          selectedRows.length > 1 ? 'users' : 'user'
+          selectedRows.length > 1 ? 'people' : 'person'
         }`
       },
       error: 'Error',
@@ -67,7 +67,7 @@ export function UsersMultiDeleteDialog<TData>({
       desc={
         <div className='space-y-4'>
           <p className='mb-2'>
-            Are you sure you want to delete the selected users? <br />
+            Are you sure you want to delete the selected people? <br />
             This action cannot be undone.
           </p>
 

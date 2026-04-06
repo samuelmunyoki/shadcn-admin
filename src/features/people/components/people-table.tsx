@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { ComponentType, JSXElementConstructor, Key, ReactElement, ReactNode, ReactPortal, useEffect, useState } from 'react'
 import {
   type SortingState,
   type VisibilityState,
@@ -25,7 +25,8 @@ import { DataTablePagination, DataTableToolbar } from '@/components/data-table'
 import { roles } from '../data/data'
 import { type User } from '../data/schema'
 import { DataTableBulkActions } from './data-table-bulk-actions'
-import { usersColumns as columns } from './users-columns'
+import { peopleColumns as columns } from './people-columns'
+import { ClassArray, ClassDictionary } from 'clsx'
 
 type DataTableProps = {
   data: User[]
@@ -34,17 +35,10 @@ type DataTableProps = {
 }
 
 export function UsersTable({ data, search, navigate }: DataTableProps) {
-  // Local UI-only states
   const [rowSelection, setRowSelection] = useState({})
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({})
   const [sorting, setSorting] = useState<SortingState>([])
-
-  // Local state management for table (uncomment to use local-only state, not synced with URL)
-  // const [columnFilters, onColumnFiltersChange] = useState<ColumnFiltersState>([])
-  // const [pagination, onPaginationChange] = useState<PaginationState>({ pageIndex: 0, pageSize: 10 })
-
-  // Synced with URL states (keys/defaults mirror users route search schema)
-  const {
+const {
     columnFilters,
     onColumnFiltersChange,
     pagination,
@@ -56,8 +50,6 @@ export function UsersTable({ data, search, navigate }: DataTableProps) {
     pagination: { defaultPage: 1, defaultPageSize: 10 },
     globalFilter: { enabled: false },
     columnFilters: [
-      // username per-column text filter
-      { columnId: 'username', searchKey: 'username', type: 'string' },
       { columnId: 'status', searchKey: 'status', type: 'array' },
       { columnId: 'role', searchKey: 'role', type: 'array' },
     ],
@@ -101,8 +93,8 @@ export function UsersTable({ data, search, navigate }: DataTableProps) {
     >
       <DataTableToolbar
         table={table}
-        searchPlaceholder='Filter users...'
-        searchKey='username'
+        searchPlaceholder='Filter people...'
+        searchKey='email'
         filters={[
           {
             columnId: 'status',
@@ -124,9 +116,9 @@ export function UsersTable({ data, search, navigate }: DataTableProps) {
       <div className='overflow-hidden rounded-md border'>
         <Table>
           <TableHeader>
-            {table.getHeaderGroups().map((headerGroup) => (
+            {table.getHeaderGroups().map((headerGroup: { id: Key | null | undefined; headers: { id: Key | null | undefined; colSpan: number | undefined; column: { columnDef: { meta: { className: string | number | bigint | boolean | ClassArray | ClassDictionary | null | undefined; thClassName: string | number | bigint | boolean | ClassArray | ClassDictionary | null | undefined }; header: string | number | bigint | boolean | ReactElement<unknown, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | Promise<string | number | bigint | boolean | ReactPortal | ReactElement<unknown, string | JSXElementConstructor<any>> | Iterable<ReactNode> | null | undefined> | ComponentType<any> | null | undefined } }; isPlaceholder: any; getContext: () => any }[] }) => (
               <TableRow key={headerGroup.id} className='group/row'>
-                {headerGroup.headers.map((header) => {
+                {headerGroup.headers.map((header: { id: Key | null | undefined; colSpan: number | undefined; column: { columnDef: { meta: { className: string | number | bigint | boolean | ClassArray | ClassDictionary | null | undefined; thClassName: string | number | bigint | boolean | ClassArray | ClassDictionary | null | undefined }; header: string | number | bigint | boolean | ReactElement<unknown, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | Promise<string | number | bigint | boolean | ReactPortal | ReactElement<unknown, string | JSXElementConstructor<any>> | Iterable<ReactNode> | null | undefined> | ComponentType<any> | null | undefined } }; isPlaceholder: any; getContext: () => any }) => {
                   return (
                     <TableHead
                       key={header.id}
@@ -151,13 +143,13 @@ export function UsersTable({ data, search, navigate }: DataTableProps) {
           </TableHeader>
           <TableBody>
             {table.getRowModel().rows?.length ? (
-              table.getRowModel().rows.map((row) => (
+              table.getRowModel().rows.map((row: { id: Key | null | undefined; getIsSelected: () => any; getVisibleCells: () => any[] }) => (
                 <TableRow
                   key={row.id}
                   data-state={row.getIsSelected() && 'selected'}
                   className='group/row'
                 >
-                  {row.getVisibleCells().map((cell) => (
+                  {row.getVisibleCells().map((cell: { id: Key | null | undefined; column: { columnDef: { meta: { className: string | number | bigint | boolean | ClassArray | ClassDictionary | null | undefined; tdClassName: string | number | bigint | boolean | ClassArray | ClassDictionary | null | undefined }; cell: string | number | bigint | boolean | ComponentType<any> | ReactElement<unknown, string | JSXElementConstructor<any>> | Iterable<ReactNode> | ReactPortal | Promise<string | number | bigint | boolean | ReactPortal | ReactElement<unknown, string | JSXElementConstructor<any>> | Iterable<ReactNode> | null | undefined> | null | undefined } }; getContext: () => any }) => (
                     <TableCell
                       key={cell.id}
                       className={cn(
